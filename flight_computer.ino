@@ -1,5 +1,6 @@
+#include "RTClib.h"
+#include "Wire.h"
 #include <SPI.h>
-
 #include "ICM20689.h"
 #include <SparkFun_MMC5983MA_Arduino_Library.h> //Click here to get the library: http://librarymanager/All#SparkFun_MMC5983MA
 #include <SD.h>
@@ -7,26 +8,42 @@
 File dataFile;
 SFE_MMC5983MA myMag;
 
-#define csmag  B00000001 //PA0 (mega pin 22)
-#define rst_ds B00000100 //PC2 (mega pin 35)
+#define csmag  PA0 //mega pin 22
+#define rst_ds PC2 //mega pin 35
+
+#define PH_X  PH3 //mega pin 6
+#define EN_X  PH4 //mega pin 7
+#define SP_X  PL4 //mega pin 45
+#define PH_Y  PH5 //mega pin 8
+#define EN_Y  PH6 //mega pin 9
+#define SP_Y  PL5 //mega pin 44
+#define PH_Z  PB4 //mega pin 10
+#define EN_Z  PB5 //mega pin 11
+#define SP_Z  PL6 //mega pin 43
+
 ICM20689 IMU(Wire,0x68);
 
+RTC_DS3231 rtc;
+
 int statusINM;
-uint32_t currentX = 0;
-uint32_t currentY = 0;
-uint32_t currentZ = 0;
-double normalizedX = 0;
-double normalizedY = 0;
-double normalizedZ = 0;
-unsigned long millisgeralpre = 0;
-const long intervaloSD = 500;
-int celsius = 0;
+uint32_t currentX, currentY, currentZ = 0;  //MAG
+double normalizedX, normalizedY, normalizedZ = 0; //MAG
+unsigned long millisgeralpre = 0; //SD
+const long intervaloSD = 500; //SD
+int celsius = 0;  //MAG
+int PHX, ENX, SPX = 0; //ACS X
+int PHY, ENY, SPY = 0; //ACS Y
+int PHZ, ENZ, SPZ = 0; //ACS Z
+String receEarth, codRTC, ajsttime;
 
 void setup()
 {
  PORTC = PORTC | (1<< PC2);
  
   Serial.begin(115200);
+  Serial1.begin(9600);
+  Serial2.begin(115200);
+  
   while(!Serial) {}
   SPI.begin();
   
@@ -160,3 +177,41 @@ void gyro(){
   Serial.print(IMU.getTemperature_C(),6);   
   Serial.println(); 
   }
+void ACS(){
+  //CONTROL ACS
+  digitalWrite(SP_X, SPX);  //Set direction X
+  digitalWrite(PH_X, PHX);  //enable X
+  analogWrite(EN_X, ENX);   //control X
+    
+  digitalWrite(SP_X, SPX);  //Set direction Y
+  digitalWrite(PH_X, PHX);  //enable Y
+  analogWrite(EN_X, ENX);   //control Y
+  
+  digitalWrite(SP_X, SPX);  //Set direction Z
+  digitalWrite(PH_X, PHX);  //enable Z
+  analogWrite(EN_X, ENX);   //control Z
+}
+void RTCds(){
+  
+  DateTime now = rtc.now(); // get the current time
+//para receber dados usar assim\/\/
+/*
+  Serial.print(now.year(), DEC);
+  Serial.print('/');
+  Serial.print(now.month(), DEC);
+  Serial.print('/');
+  Serial.print(now.day(), DEC);
+  Serial.print(' ');
+  Serial.print(now.hour(), DEC);
+  Serial.print(':');
+  Serial.print(now.minute(), DEC);
+  Serial.print(':');
+  Serial.print(now.second(), DEC);
+  Serial.println();  
+*/  
+}
+void RebDataRTC(){
+  if(receEarth == codRTC){
+    rtc.adjust(DateTime(ajsttime)); //(ANO), (MÊS), (DIA), (HORA), (MINUTOS), (SEGUNDOS)
+  }
+}

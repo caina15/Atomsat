@@ -1,7 +1,0 @@
-(sym_lib_table
-  (lib (name "1K_Custom_Symbol")(type "Legacy")(uri "C:/Program Files (x86)/KiCad/share/kicad/library/1K_Custom_Symbol.lib")(options "")(descr "1K_Custom_Symbol"))
-  (lib (name "ICM-20689")(type "KiCad")(uri "${KIPRJMOD}/ICM-20689.kicad_sym")(options "")(descr ""))
-  (lib (name "AT24C32D")(type "KiCad")(uri "${KIPRJMOD}/AT24C32D.kicad_sym")(options "")(descr ""))
-  (lib (name "74LVC125APW")(type "KiCad")(uri "${KIPRJMOD}/74LVC125APW.kicad_sym")(options "")(descr ""))
-  (lib (name "temt6000")(type "KiCad")(uri "${KIPRJMOD}/temt6000.kicad_sym")(options "")(descr ""))
-)

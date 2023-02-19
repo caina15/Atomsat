@@ -1,0 +1,7 @@
+(fp_lib_table
+  (lib (name "footprint_custom")(type "KiCad")(uri "C:/Program Files (x86)/KiCad/share/kicad/modules/footprint_custom.pretty")(options "")(descr "footprint_custom"))
+  (lib (name "ICM-20689")(type "KiCad")(uri "${KIPRJMOD}/ICM-20689.pretty")(options "")(descr ""))
+  (lib (name "AT24C32D")(type "KiCad")(uri "${KIPRJMOD}/AT24C32D.pretty")(options "")(descr ""))
+  (lib (name "74LVC125APW")(type "KiCad")(uri "${KIPRJMOD}/74LVC125APW.pretty")(options "")(descr ""))
+  (lib (name "temt6000")(type "KiCad")(uri "${KIPRJMOD}/temt6000.pretty")(options "")(descr ""))
+)

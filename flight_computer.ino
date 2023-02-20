@@ -5,6 +5,9 @@
 #include <SparkFun_MMC5983MA_Arduino_Library.h> //Click here to get the library: http://librarymanager/All#SparkFun_MMC5983MA
 #include <SD.h>
 
+void mag();
+void gyro();
+
 File dataFile;
 SFE_MMC5983MA myMag;
 

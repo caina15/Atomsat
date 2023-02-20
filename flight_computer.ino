@@ -37,7 +37,8 @@ int celsius = 0;  //MAG
 int PHX, ENX, SPX = 0; //ACS X
 int PHY, ENY, SPY = 0; //ACS Y
 int PHZ, ENZ, SPZ = 0; //ACS Z
-String receEarth, codRTC, ajsttime;
+String receEarth, codRTC;
+DateTime ajsttime;
 
 void setup()
 {
@@ -215,6 +216,6 @@ void RTCds(){
 }
 void RebDataRTC(){
   if(receEarth == codRTC){
-    rtc.adjust(DateTime(ajsttime)); //(ANO), (MÊS), (DIA), (HORA), (MINUTOS), (SEGUNDOS)
+    rtc.adjust(ajsttime); //(ANO), (MÊS), (DIA), (HORA), (MINUTOS), (SEGUNDOS)
   }
 }
